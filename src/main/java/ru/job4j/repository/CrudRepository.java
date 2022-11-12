@@ -120,7 +120,7 @@ public class CrudRepository {
      * @param <T>
      * @return <T>T
      */
-    public <T>T tx(Function<Session, T> command) {
+    public <T> T tx(Function<Session, T> command) {
         var session = sf.openSession();
         try (session) {
             var tx = session.beginTransaction();
