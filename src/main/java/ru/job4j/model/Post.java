@@ -21,8 +21,7 @@ public class Post {
     @Include
     private int id;
     private String text;
-    private String created = String.valueOf(LocalDateTime.now()
-            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+    private LocalDateTime created = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "auto_user_id")

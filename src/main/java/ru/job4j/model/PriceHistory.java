@@ -30,7 +30,6 @@ public class PriceHistory {
     private int id;
     private BigInteger before = new BigInteger("1");
     private BigInteger after = new BigInteger("1");
-    private Timestamp created = Timestamp.valueOf(LocalDateTime.now()
-            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+    private LocalDateTime created = LocalDateTime.now();
 
 }

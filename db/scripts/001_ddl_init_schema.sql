@@ -7,6 +7,6 @@ CREATE TABLE if not exists auto_user (
 CREATE TABLE if not exists auto_post (
   id SERIAL PRIMARY KEY,
   text TEXT,
-  created TEXT,
+  created TIMESTAMP,
   auto_user_id INT NOT NULL REFERENCES auto_user(id)
 );
