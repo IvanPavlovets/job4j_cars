@@ -29,8 +29,8 @@ public class HbmRun {
             var post = new Post();
             post.setText("car sale");
             post.setPriceHistories(
-                    List.of(new PriceHistory(),
-                            new PriceHistory()
+                    List.of(new PriceHistory(0, BigInteger.ONE, BigInteger.ONE, LocalDateTime.now()),
+                            new PriceHistory(0, BigInteger.ONE, BigInteger.ONE, LocalDateTime.now())
                     )
             );
             post.setUser(user);

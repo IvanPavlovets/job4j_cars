@@ -28,8 +28,8 @@ public class PriceHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Include
     private int id;
-    private BigInteger before = new BigInteger("1");
-    private BigInteger after = new BigInteger("1");
-    private LocalDateTime created = LocalDateTime.now();
+    private BigInteger before;
+    private BigInteger after;
+    private LocalDateTime created;
 
 }
