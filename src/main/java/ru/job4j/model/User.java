@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Include;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Клас пользователя
@@ -23,4 +25,8 @@ public class User {
     private int id;
     private String login;
     private String password;
+
+    @ManyToMany(mappedBy = "users")
+    private List<Post> posts = new ArrayList<>();
+
 }
