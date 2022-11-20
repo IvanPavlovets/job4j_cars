@@ -9,6 +9,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 public class PatricipatesRun {
 
@@ -31,14 +32,14 @@ public class PatricipatesRun {
                     )
             );
             post.setUser(user);
-            post.setParticipates(List.of(user));
+            post.setUsers(Set.of(user));
             create(post, sf);
 
             sf.openSession()
                     .createQuery("from Post where id = :fId", Post.class)
                     .setParameter("fId", post.getId())
                     .getSingleResult()
-                    .getParticipates()
+                    .getUsers()
                     .forEach(System.out::println);
         } catch (Exception e) {
             e.printStackTrace();

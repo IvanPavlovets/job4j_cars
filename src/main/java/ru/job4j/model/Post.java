@@ -7,7 +7,9 @@ import lombok.EqualsAndHashCode.Include;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -43,6 +45,17 @@ public class Post {
             joinColumns = {@JoinColumn(name = "post_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
-    private List<User> users = new ArrayList<>();
+    private Set<User> users = new HashSet<>();
+
+    public void addUser(User user, PriceHistory history) {
+        this.users.add(user);
+        this.priceHistories.add(history);
+        user.getPosts().add(this);
+    }
+
+    public void removeUser(User user) {
+        this.users.remove(user);
+        user.getPosts().remove(this);
+    }
 
 }
