@@ -12,7 +12,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@ToString
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
@@ -23,10 +22,8 @@ public class Post {
     @Include
     private int id;
     private String text;
-    @ToString.Exclude
     private LocalDateTime created = LocalDateTime.now();
 
-    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "auto_user_id")
     private User user;
@@ -50,16 +47,5 @@ public class Post {
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
     private Set<User> participates = new HashSet<>();
-
-    public void addParticipant(User user) {
-        this.participates.add(user);
-        user.getParticipates().add(this);
-    }
-
-    public void removeParticipant(User user) {
-        this.participates.remove(user);
-        user.getParticipates().remove(this);
-    }
-
 
 }

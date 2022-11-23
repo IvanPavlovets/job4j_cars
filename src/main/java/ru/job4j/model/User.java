@@ -18,7 +18,6 @@ import java.util.Set;
 @Entity
 @Table(name = "auto_user")
 @Data
-@ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
     @Id
@@ -27,19 +26,5 @@ public class User {
     private int id;
     private String login;
     private String password;
-
-    @ToString.Exclude
-    @ManyToMany(mappedBy = "participates")
-    private Set<Post> participates = new HashSet<>();
-
-    public void addParticipant(Post post) {
-        this.participates.add(post);
-        post.getParticipates().add(this);
-    }
-
-    public void removeParticipant(Post post) {
-        this.participates.remove(post);
-        post.getParticipates().remove(this);
-    }
 
 }
