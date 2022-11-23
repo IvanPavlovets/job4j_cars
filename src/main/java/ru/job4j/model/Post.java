@@ -3,6 +3,7 @@ package ru.job4j.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Include;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@ToString
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
@@ -21,8 +23,10 @@ public class Post {
     @Include
     private int id;
     private String text;
+    @ToString.Exclude
     private LocalDateTime created = LocalDateTime.now();
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "auto_user_id")
     private User user;
@@ -45,17 +49,17 @@ public class Post {
             joinColumns = {@JoinColumn(name = "post_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
-    private Set<User> users = new HashSet<>();
+    private Set<User> participates = new HashSet<>();
 
-    public void addUser(User user, PriceHistory history) {
-        this.users.add(user);
-        this.priceHistories.add(history);
-        user.getPosts().add(this);
+    public void addParticipant(User user) {
+        this.participates.add(user);
+        user.getParticipates().add(this);
     }
 
-    public void removeUser(User user) {
-        this.users.remove(user);
-        user.getPosts().remove(this);
+    public void removeParticipant(User user) {
+        this.participates.remove(user);
+        user.getParticipates().remove(this);
     }
+
 
 }

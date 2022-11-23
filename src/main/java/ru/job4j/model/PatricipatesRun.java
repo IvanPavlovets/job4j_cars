@@ -9,7 +9,6 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 public class PatricipatesRun {
 
@@ -20,26 +19,26 @@ public class PatricipatesRun {
             SessionFactory sf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
 
             var user = new User();
-            user.setLogin("Ivan");
-            user.setPassword("password");
+            user.setLogin("Ivan1");
+            user.setPassword("password1");
             create(user, sf);
 
             var post = new Post();
-            post.setText("car sale");
+            post.setText("car sale1");
             post.setPriceHistories(
                     List.of(new PriceHistory(0, BigInteger.ONE, BigInteger.ONE, LocalDateTime.now()),
                             new PriceHistory(0, BigInteger.ONE, BigInteger.ONE, LocalDateTime.now())
                     )
             );
             post.setUser(user);
-            post.setUsers(Set.of(user));
+            post.addParticipant(user);
             create(post, sf);
 
             sf.openSession()
                     .createQuery("from Post where id = :fId", Post.class)
                     .setParameter("fId", post.getId())
                     .getSingleResult()
-                    .getUsers()
+                    .getParticipates()
                     .forEach(System.out::println);
         } catch (Exception e) {
             e.printStackTrace();

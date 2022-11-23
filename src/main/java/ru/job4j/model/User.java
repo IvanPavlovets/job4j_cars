@@ -3,11 +3,10 @@ package ru.job4j.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.EqualsAndHashCode.Include;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,6 +18,7 @@ import java.util.Set;
 @Entity
 @Table(name = "auto_user")
 @Data
+@ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
     @Id
@@ -28,18 +28,18 @@ public class User {
     private String login;
     private String password;
 
-    @ManyToMany(mappedBy = "users")
-    private Set<Post> posts = new HashSet<>();
+    @ToString.Exclude
+    @ManyToMany(mappedBy = "participates")
+    private Set<Post> participates = new HashSet<>();
 
-    public void addPostWithPriseHistory(Post post, PriceHistory history) {
-        post.getPriceHistories().add(history);
-        this.posts.add(post);
-        post.getUsers().add(this);
+    public void addParticipant(Post post) {
+        this.participates.add(post);
+        post.getParticipates().add(this);
     }
 
-    public void removePost(Post post) {
-        this.posts.remove(post);
-        post.getUsers().remove(this);
+    public void removeParticipant(Post post) {
+        this.participates.remove(post);
+        post.getParticipates().remove(this);
     }
 
 }
