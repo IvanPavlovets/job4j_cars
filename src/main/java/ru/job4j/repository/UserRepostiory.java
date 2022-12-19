@@ -1,9 +1,6 @@
 package ru.job4j.repository;
 
 import lombok.AllArgsConstructor;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import ru.job4j.model.User;
 
 import java.util.List;

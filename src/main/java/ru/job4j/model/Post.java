@@ -48,4 +48,8 @@ public class Post {
     )
     private Set<User> participates = new HashSet<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "car_id", foreignKey = @ForeignKey(name = "CAR_ID_FK"))
+    private Car car;
+
 }

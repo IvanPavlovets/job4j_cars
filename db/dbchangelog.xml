@@ -12,4 +12,5 @@
     <include file="scripts/002_dml_insert_auto_user.sql" relativeToChangelogFile="true"/>
     <include file="scripts/003_ddl_init_schema_price_history.sql" relativeToChangelogFile="true"/>
     <include file="scripts/004_ddl_init_schema_participates.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/005_ddl_schemas_(car)_(engine)_(driver)_(history_owner).sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>
