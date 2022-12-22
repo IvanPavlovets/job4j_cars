@@ -17,4 +17,8 @@
     <include file="scripts/007_ddl_init_schema_driver.sql" relativeToChangelogFile="true"/>
     <include file="scripts/008_ddl_init_schema_history_owner.sql" relativeToChangelogFile="true"/>
     <include file="scripts/009_ddl_column(car_id)_to_auto_post.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/010_ddl_init_schema_brand.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/011_ddl_init_schema_carbody.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/012_ddl_init_schema_model.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/013_ddl_rename_column(description)_to_car.sql" relativeToChangelogFile="true"/>
 </databaseChangeLog>
