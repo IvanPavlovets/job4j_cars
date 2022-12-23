@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import ru.job4j.model.Brand;
 import ru.job4j.model.Post;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +30,8 @@ public class PostRepository {
      */
     public List<Post> findToday() {
         return crudRepository.query(
-                HQL_POST + "p.created > CURRENT_DATE", Post.class
+                HQL_POST + "p.created > :lastDay", Post.class,
+                Map.of(":lastDay", LocalDateTime.now().minusHours(24))
         );
     }
 
