@@ -28,6 +28,6 @@ public class PriceHistory {
     private int id;
     private BigInteger before;
     private BigInteger after;
-    private LocalDateTime created;
+    private LocalDateTime created = LocalDateTime.now().withNano(0);
 
 }

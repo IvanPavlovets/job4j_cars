@@ -1,26 +1,35 @@
 package ru.job4j.repository;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.springframework.stereotype.Repository;
 import ru.job4j.model.User;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Data
+@Repository
 @AllArgsConstructor
-public class UserRepostiory {
+public class UserRepository {
 
     private final CrudRepository crudRepository;
 
     /**
-     * Сохранить в базе.
-     *
-     * @param user пользователь.
-     * @return пользователь с id.
+     * Добавление модели в контекст персистенции.
+     * @param user
+     * @return boolean
      */
-    public User create(User user) {
-        crudRepository.run(session -> session.persist(user));
-        return user;
+    public boolean create(User user) {
+        boolean rsl = false;
+        try {
+            crudRepository.run(session -> session.save(user));
+            rsl = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rsl;
     }
 
     /**
@@ -28,20 +37,33 @@ public class UserRepostiory {
      *
      * @param user пользователь.
      */
-    public void update(User user) {
-        crudRepository.run(session -> session.merge(user));
+    public boolean update(User user) {
+        boolean rsl = false;
+        try {
+            crudRepository.run(session -> session.merge(user));
+            rsl = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rsl;
     }
 
     /**
-     * Удалить пользователя по id.
-     *
-     * @param userId ID
+     * Удаление модели.
+     * @return boolean
      */
-    public void delete(int userId) {
-        crudRepository.run(
-                "DELETE User WHERE id = :fId",
-                Map.of("fId", userId)
-        );
+    public boolean delete(int id) {
+        boolean rsl = false;
+        try {
+            crudRepository.run(
+                    "DELETE User WHERE id = :fId",
+                    Map.of("fId", id)
+            );
+            rsl = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rsl;
     }
 
     /**

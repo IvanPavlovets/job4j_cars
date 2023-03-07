@@ -1,29 +1,31 @@
 package ru.job4j.repository;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.stereotype.Repository;
-import ru.job4j.model.Car;
-import ru.job4j.model.Driver;
+import ru.job4j.model.PriceHistory;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Data
 @Repository
 @AllArgsConstructor
-public class CarRepository {
+public class PriceHistoryRepository {
 
     private final CrudRepository crudRepository;
 
+
     /**
      * Добавление модели в контекст персистенции.
-     * @param car
+     * @param history
      * @return boolean
      */
-    public boolean create(Car car) {
+    public boolean create(PriceHistory history) {
         boolean rsl = false;
         try {
-            crudRepository.run(session -> session.save(car));
+            crudRepository.run(session -> session.save(history));
             rsl = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -32,14 +34,14 @@ public class CarRepository {
     }
 
     /**
-     * Обновить в car базе
+     * Обновить.
      *
-     * @param car
+     * @param history пользователь.
      */
-    public boolean update(Car car) {
+    public boolean update(PriceHistory history) {
         boolean rsl = false;
         try {
-            crudRepository.run(session -> session.merge(car));
+            crudRepository.run(session -> session.merge(history));
             rsl = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,33 +51,13 @@ public class CarRepository {
 
     /**
      * Удаление модели.
-     *
-     * @param car
-     * @return boolean
-     */
-    public boolean delete(Car car) {
-        boolean rsl = false;
-        try {
-            crudRepository.run(session -> session.delete(car));
-            rsl = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return rsl;
-    }
-
-    /**
-     * Удаление модели по id,
-     * без удаления внутрених
-     * сущностей.
-     *
      * @return boolean
      */
     public boolean delete(int id) {
         boolean rsl = false;
         try {
             crudRepository.run(
-                    "DELETE Car WHERE id = :fId",
+                    "DELETE PriceHistory WHERE id = :fId",
                     Map.of("fId", id)
             );
             rsl = true;
@@ -85,29 +67,27 @@ public class CarRepository {
         return rsl;
     }
 
-
     /**
      * Достает все значения из хранилища (БД)
-     *
-     * @return List<Task>
+     * @return List<PriceHistory>
      */
-    public List<Car> findAll() {
+    public List<PriceHistory> findAllPriceHistory() {
         return crudRepository.query(
-                "from Car fetch all properties order by id asc", Car.class
+                "from PriceHistory", PriceHistory.class
         );
     }
 
+
     /**
      * Находит запись в БД по id
-     *
      * @param id
-     * @return Optional<Engine>
+     * @return Optional<PriceHistory>
      */
-    public Optional<Car> findCarById(int id) {
-        Optional<Car> rsl = Optional.empty();
+    public Optional<PriceHistory> findPriceHistoryById(int id) {
+        Optional<PriceHistory> rsl = Optional.empty();
         try {
             rsl = crudRepository.optional(
-                    "from Car fetch all properties where id = :fId", Car.class,
+                    "from PriceHistory as ph where ph.id = :fId", PriceHistory.class,
                     Map.of("fId", id));
             return rsl;
         } catch (Exception e) {
@@ -115,6 +95,4 @@ public class CarRepository {
             return rsl;
         }
     }
-
-
 }

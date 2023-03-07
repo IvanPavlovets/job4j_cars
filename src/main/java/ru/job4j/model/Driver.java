@@ -16,5 +16,4 @@ public class Driver {
     private int id;
     private String name;
 
-    private User user;
 }
